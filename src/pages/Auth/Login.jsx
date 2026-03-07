@@ -13,7 +13,8 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await login(form);
+      const res =await login(form);
+      localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
       setError("Invalid credentials");
