@@ -12,7 +12,7 @@ import { logout } from "../../services/auth-service";
 export default function Dashboard() {
   const { apps, create, remove, fetchApps } = useApplications();
   const navigate = useNavigate();
-  const [view, setView] = useState("list"); // list | board
+  const [view, setView] = useState("list");
 
   const handleLogout = async () => {
     await logout();
@@ -22,23 +22,25 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout onLogout={handleLogout}>
-      <div className="flex flex-wrap gap-3 justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">My Applications</h2>
+      <div className="flex flex-wrap gap-4 justify-between items-center mb-8">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">My Applications</h2>
+          <p className="text-gray-500 text-sm">Track and manage your job hunt</p>
+        </div>
 
-        <div className="flex gap-2">
+        <div className="flex bg-gray-200 p-1 rounded-lg">
           <button
             onClick={() => setView("list")}
-            className={`px-3 py-1 rounded ${
-              view === "list" ? "bg-blue-600 text-white" : "bg-gray-200"
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
+              view === "list" ? "bg-white shadow" : "text-gray-600"
             }`}
           >
             List
           </button>
-
           <button
             onClick={() => setView("board")}
-            className={`px-3 py-1 rounded ${
-              view === "board" ? "bg-blue-600 text-white" : "bg-gray-200"
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
+              view === "board" ? "bg-white shadow" : "text-gray-600"
             }`}
           >
             Board
@@ -48,26 +50,24 @@ export default function Dashboard() {
 
       <StatsCards apps={apps} />
 
-      <div className="mt-6">
+      <div className="mt-8">
         <Filters onFilter={fetchApps} />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-8">
         <ApplicationForm onSubmit={create} />
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10">
         {view === "list" ? (
-          <div className="grid gap-4">
+          <div className="grid md:grid-cols-2 gap-6">
             {apps.map(app => (
-              <ApplicationCard
-                key={app._id}
-                app={app}
-                onDelete={remove}
-              />
+              <ApplicationCard key={app._id} app={app} onDelete={remove} />
             ))}
             {apps.length === 0 && (
-              <p className="text-gray-500">No applications yet.</p>
+              <div className="col-span-full text-center py-12 text-gray-500">
+                No applications yet
+              </div>
             )}
           </div>
         ) : (
@@ -77,3 +77,6 @@ export default function Dashboard() {
     </DashboardLayout>
   );
 }
+
+
+
