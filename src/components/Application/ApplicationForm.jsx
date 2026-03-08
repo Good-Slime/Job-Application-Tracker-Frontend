@@ -5,6 +5,8 @@ export default function ApplicationForm({ onSubmit }) {
     company: "",
     role: "",
     location: "",
+    salary: "",
+    jobLink: "",
     status: "Applied"
   });
 
@@ -22,6 +24,23 @@ export default function ApplicationForm({ onSubmit }) {
       <input name="company" placeholder="Company" onChange={handleChange} value={form.company} className="w-full border p-2 rounded" required />
       <input name="role" placeholder="Role" onChange={handleChange} value={form.role} className="w-full border p-2 rounded" required />
       <input name="location" placeholder="Location" onChange={handleChange} value={form.location} className="w-full border p-2 rounded" required />
+      <input
+        name="salary"
+        placeholder="Salary (e.g. 12 LPA)"
+        onChange={handleChange}
+        value={form.salary}
+        className="w-full border p-2 rounded"
+        required
+      />
+
+      <input
+        name="jobLink"
+        placeholder="Job Link URL"
+        onChange={handleChange}
+        value={form.jobLink}
+        className="w-full border p-2 rounded"
+        required
+      />
 
       <select name="status" onChange={handleChange} value={form.status} className="w-full border p-2 rounded">
         <option>Applied</option>
