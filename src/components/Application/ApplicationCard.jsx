@@ -9,6 +9,8 @@ export default function ApplicationCard({ app, onDelete }) {
       </h3>
       <p className="text-sm text-gray-600">Status: {app.status}</p>
       <p className="text-sm text-gray-600">Location: {app.location}</p>
+      <p className="text-sm text-gray-600">Salary: {app.salary}</p>
+      <p className="text-sm text-gray-600">Job Link: {app.jobLink}</p>
 
       <Link to={`/applications/${app._id}/edit`} className="text-blue-600 text-sm">
         Edit

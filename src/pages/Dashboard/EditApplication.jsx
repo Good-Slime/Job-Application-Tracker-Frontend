@@ -49,6 +49,22 @@ export default function EditApplication() {
                 className="border p-2 w-full"
                 placeholder="Location"
             />
+
+            <input
+                name="salary"
+                placeholder="Salary (e.g. 12 LPA)"
+                onChange={change}
+                value={form.salary || ""}
+                className="w-full border p-2 rounded"
+            />
+
+            <input
+                name="jobLink"
+                placeholder="Job Link URL"
+                onChange={change}
+                value={form.jobLink || ""}
+                className="w-full border p-2 rounded"
+            />
             <select
                 name="status"
                 value={form.status || "Applied"}

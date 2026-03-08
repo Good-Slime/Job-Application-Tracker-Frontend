@@ -16,7 +16,7 @@ export default function ApplicationForm({ onSubmit }) {
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(form);
-    setForm({ company: "", role: "", location: "", status: "Applied" });
+    setForm({ company: "", role: "", location: "", salary: "", jobLink: "",status: "Applied" });
   };
 
   return (
