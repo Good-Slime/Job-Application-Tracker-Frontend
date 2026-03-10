@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const inputClass = "border p-2 rounded bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none transition-colors"  ;
+
 export default function Filters({ onFilter }) {
   const [form, setForm] = useState({});
 
@@ -7,8 +9,8 @@ export default function Filters({ onFilter }) {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
-    <div className="bg-white p-4 rounded shadow grid md:grid-cols-4 gap-3">
-      <select name="status" onChange={change} className="border p-2 rounded">
+    <div className="bg-white dark:bg-slate-900 p-4 rounded shadow grid md:grid-cols-4 gap-3">
+      <select name="status" onChange={change} className={inputClass}>
         <option value="">All Status</option>
         <option>Applied</option>
         <option>Interview</option>
@@ -20,19 +22,19 @@ export default function Filters({ onFilter }) {
         name="company"
         placeholder="Company"
         onChange={change}
-        className="border p-2 rounded"
+        className={inputClass}
       />
 
       <input
         name="search"
         placeholder="Search role/notes"
         onChange={change}
-        className="border p-2 rounded"
+        className={inputClass}
       />
 
       <button
         onClick={() => onFilter(form)}
-        className="bg-blue-600 text-white rounded"
+        className={inputClass}
       >
         Apply
       </button>

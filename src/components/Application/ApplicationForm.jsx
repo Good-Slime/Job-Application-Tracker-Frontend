@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const inputClass = "w-full border p-2 rounded bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none transition-colors";
+
 export default function ApplicationForm({ onSubmit }) {
   const [form, setForm] = useState({
     company: "",
@@ -20,16 +22,16 @@ export default function ApplicationForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow space-y-3">
-      <input name="company" placeholder="Company" onChange={handleChange} value={form.company} className="w-full border p-2 rounded" required />
-      <input name="role" placeholder="Role" onChange={handleChange} value={form.role} className="w-full border p-2 rounded" required />
-      <input name="location" placeholder="Location" onChange={handleChange} value={form.location} className="w-full border p-2 rounded" required />
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-900 p-4 rounded shadow space-y-3">
+      <input name="company" placeholder="Company" onChange={handleChange} value={form.company} className={inputClass} required />
+      <input name="role" placeholder="Role" onChange={handleChange} value={form.role} className={inputClass} required />
+      <input name="location" placeholder="Location" onChange={handleChange} value={form.location} className={inputClass} required />
       <input
         name="salary"
         placeholder="Salary (e.g. 12 LPA)"
         onChange={handleChange}
         value={form.salary}
-        className="w-full border p-2 rounded"
+        className={inputClass}
         required
       />
 
@@ -38,11 +40,11 @@ export default function ApplicationForm({ onSubmit }) {
         placeholder="Job Link URL"
         onChange={handleChange}
         value={form.jobLink}
-        className="w-full border p-2 rounded"
+        className={inputClass}
         required
       />
 
-      <select name="status" onChange={handleChange} value={form.status} className="w-full border p-2 rounded">
+      <select name="status" onChange={handleChange} value={form.status} className={inputClass}>
         <option>Applied</option>
         <option>Interview</option>
         <option>Offer</option>
