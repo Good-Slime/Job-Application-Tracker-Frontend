@@ -6,6 +6,7 @@ import ApplicationForm from "../../components/Application/ApplicationForm";
 import Filters from "../../components/Application/Filters";
 import KanbanBoard from "../../components/Application/KanbanBoard";
 import StatsCards from "../../components/Application/StatsCards";
+import EmptyState from "../../components/Application/EmptyState";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import SkeletonCard from "../../components/UI/SkeletonCard";
 import { logout } from "../../services/auth-service";
@@ -90,23 +91,22 @@ export default function Dashboard() {
           </div>
         ) : (
           <>
-            {view === "list" ? (
-              <div className="grid md:grid-cols-2 gap-6">
-                {apps.map((app) => (
-                  <ApplicationCard 
-                    key={app._id} 
-                    app={app} 
-                    onDelete={() => handleDeleteApplication(app._id, app.company)} 
-                  />
-                ))}
-                {apps.length === 0 && (
-                  <div className="col-span-full text-center py-12 text-gray-500 border-2 border-dashed border-gray-200 dark:border-slate-800 rounded-xl">
-                    No applications yet. Time to hit Apply!
-                  </div>
-                )}
-              </div>
+            {apps.length === 0 ? (
+              <EmptyState />
             ) : (
-              <KanbanBoard apps={apps} />
+              view === "list" ? (
+                <div className="grid md:grid-cols-2 gap-6">
+                  {apps.map((app) => (
+                    <ApplicationCard 
+                      key={app._id} 
+                      app={app} 
+                      onDelete={() => handleDeleteApplication(app._id, app.company)} 
+                    />
+                  ))}
+                </div>
+              ) : (
+                <KanbanBoard apps={apps} />
+              )
             )}
           </>
         )}
