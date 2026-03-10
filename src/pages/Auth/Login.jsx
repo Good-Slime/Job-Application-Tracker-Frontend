@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../../services/auth-service";
 import { useNavigate, Link } from "react-router-dom";
 import { toastSuccess , toastError } from "../../utils/Toast";
+import Spinner from "../../components/UI/Spinner"; 
 
 export default function Login() {
   const navigate = useNavigate();
@@ -72,9 +73,9 @@ export default function Login() {
 
           <button 
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg font-bold shadow-lg shadow-blue-500/30 transition-all transform active:scale-[0.98]"
+            className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg font-bold shadow-lg shadow-blue-500/30 transition-all transform active:scale-[0.98]"
           >
-            {loading ? "Signing in..." : "Login"}
+            {loading ? <Spinner size="h-5 w-5" /> : "Login"}
           </button>
         </form>
 

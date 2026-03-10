@@ -1,29 +1,19 @@
-import { toast , Bounce } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 
-const style = {
+const getToastConfig = () => {
+  const currentTheme = localStorage.getItem("theme") || "light";
+  return {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
-    closeOnClick: false,
+    closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
-    progress: undefined,
-    theme: "light",
+    theme: currentTheme, 
     transition: Bounce,
-}
-
-export const toastError = (message) => {
-    toast.error(message, style);
-}
-
-export const toastSuccess = (message) => {
-    toast.success(message, style);
+  };
 };
 
-export const toastWarning = (message) => {
-    toast.warning(message, style);
-};
-
-export const toastInfo = (message) => {
-    toast.info(message, style);
-};
+export const toastSuccess = (msg) => toast.success(msg, getToastConfig());
+export const toastError = (msg) => toast.error(msg, getToastConfig());
+export const toastWarning = (msg) => toast.warning(msg, getToastConfig());

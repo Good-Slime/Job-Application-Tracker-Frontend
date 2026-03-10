@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signup } from "../../services/auth-service";
 import { useNavigate, Link } from "react-router-dom";
 import { toastSuccess, toastError } from "../../utils/Toast";
+import Spinner from "../../components/UI/Spinner";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -18,10 +19,10 @@ export default function Signup() {
     setError("");
     try {
       await signup(form);
-      toastSuccess("user created Successfully. Please Login here")
+      toastSuccess("User created Successfully. Please Login here");
       navigate("/Login");
     } catch {
-      toastError("Something went wrong. Please check your details.")
+      toastError("Something went wrong. Please check your details.");
       setError("Something went wrong. Please check your details.");
     } finally {
       setLoading(false);
@@ -82,9 +83,9 @@ export default function Signup() {
 
           <button 
             disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-3 rounded-lg font-bold shadow-lg shadow-green-500/30 transition-all transform active:scale-[0.98]"
+            className="w-full flex items-center justify-center bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-3 rounded-lg font-bold shadow-lg shadow-green-500/30 transition-all transform active:scale-[0.98]"
           >
-            {loading ? "Creating Account..." : "Get Started"}
+            {loading ? <Spinner size="h-5 w-5" /> : "Get Started"}
           </button>
         </form>
 

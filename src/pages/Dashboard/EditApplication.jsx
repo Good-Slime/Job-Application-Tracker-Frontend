@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { updateApplication, getApplicationById } from "../../services/application-service";
 import { toastError , toastSuccess } from "../../utils/Toast";
+import Spinner from "../../components/UI/Spinner"; 
 
 export default function EditApplication() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ export default function EditApplication() {
     getApplicationById(id)
       .then(res => setForm(res.data))
       .catch(err => {
+        toastError("Failed to load application details.");
         console.error(err);
       });
   }, [id]);
@@ -36,8 +38,9 @@ export default function EditApplication() {
 
   if (!form)
     return (
-      <div className="max-w-xl mx-auto py-20 text-center text-gray-500 dark:text-slate-400">
-        <div className="animate-pulse">Loading application details...</div>
+      <div className="min-h-screen flex flex-col items-center justify-center text-gray-500 dark:text-slate-400">
+        <Spinner size="h-10 w-10" className="text-blue-600 mb-4" /> 
+        <div className="animate-pulse">Fetching details...</div>
       </div>
     );
 
@@ -90,9 +93,9 @@ export default function EditApplication() {
           <div className="flex items-center gap-3 pt-4 border-t dark:border-slate-800 mt-6">
             <button 
               disabled={isSaving}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98]"
+              className="flex-1 flex items-center justify-center bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98]"
             >
-              {isSaving ? "Saving..." : "Save Changes"}
+              {isSaving ? <Spinner size="h-5 w-5" /> : "Save Changes"}
             </button>
             <button 
               type="button" 
