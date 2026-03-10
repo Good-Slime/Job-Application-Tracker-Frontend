@@ -13,6 +13,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+export function isAuthenticated(){
+  return localStorage.getItem("token") !== null;
+}
+
 export default api;
 
 // https://job-application-tracker-backend-c62w.onrender.com
