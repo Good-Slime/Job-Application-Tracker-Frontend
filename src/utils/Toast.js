@@ -17,3 +17,4 @@ const getToastConfig = () => {
 export const toastSuccess = (msg) => toast.success(msg, getToastConfig());
 export const toastError = (msg) => toast.error(msg, getToastConfig());
 export const toastWarning = (msg) => toast.warning(msg, getToastConfig());
+export const toastInfo = (msg) => toast.info(msg, getToastConfig());  
