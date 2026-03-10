@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signup } from "../../services/auth-service";
 import { useNavigate, Link } from "react-router-dom";
+import { toastSuccess, toastError } from "../../utils/Toast";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -17,8 +18,10 @@ export default function Signup() {
     setError("");
     try {
       await signup(form);
-      navigate("/dashboard");
+      toastSuccess("user created Successfully. Please Login here")
+      navigate("/Login");
     } catch {
+      toastError("Something went wrong. Please check your details.")
       setError("Something went wrong. Please check your details.");
     } finally {
       setLoading(false);

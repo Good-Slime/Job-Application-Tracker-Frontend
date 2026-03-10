@@ -8,6 +8,7 @@ import KanbanBoard from "../../components/Application/KanbanBoard";
 import StatsCards from "../../components/Application/StatsCards";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { logout } from "../../services/auth-service";
+import { toastSuccess, toastError, toastWarning } from "../../utils/Toast";
 
 export default function Dashboard() {
   const { apps, create, remove, fetchApps } = useApplications();
@@ -15,9 +16,32 @@ export default function Dashboard() {
   const [view, setView] = useState("list");
 
   const handleLogout = async () => {
-    await logout();
-    localStorage.removeItem("token");
-    navigate("/login");
+    try {
+      await logout();
+      localStorage.removeItem("token");
+      toastSuccess("Logged out successfully! 👋");
+      navigate("/login");
+    } catch (error) {
+      toastError("Something went wrong during logout.");
+    }
+  };
+
+  const handleCreateApplication = async (data) => {
+    try {
+      await create(data);
+      toastSuccess(`Added ${data.company} Application to your tracker! 🚀`);
+    } catch (error) {
+      toastError("Failed to create application. Please try again.");
+    }
+  };
+
+  const handleDeleteApplication = async (id, companyName) => {
+    try {
+      await remove(id);
+      toastWarning(`Removed ${companyName || ''} Application.`);
+    } catch (error) {
+      toastError("Could not delete. Please try again.");
+    }
   };
 
   return (
@@ -55,18 +79,23 @@ export default function Dashboard() {
       </div>
 
       <div className="mt-8">
-        <ApplicationForm onSubmit={create} />
+        <ApplicationForm onSubmit={handleCreateApplication} />
       </div>
 
       <div className="mt-10">
         {view === "list" ? (
           <div className="grid md:grid-cols-2 gap-6">
-            {apps.map(app => (
-              <ApplicationCard key={app._id} app={app} onDelete={remove} />
+            {apps.map((app) => (
+              <ApplicationCard 
+                key={app._id} 
+                app={app} 
+                onDelete={() => handleDeleteApplication(app._id, app.company)} 
+              />
             ))}
+            
             {apps.length === 0 && (
-              <div className="col-span-full text-center py-12 text-gray-500">
-                No applications yet
+              <div className="col-span-full text-center py-12 text-gray-500 border-2 border-dashed rounded-xl">
+                No applications yet. Time to hit Apply!
               </div>
             )}
           </div>
@@ -77,6 +106,3 @@ export default function Dashboard() {
     </DashboardLayout>
   );
 }
-
-
-

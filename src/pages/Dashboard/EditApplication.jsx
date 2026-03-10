@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { updateApplication, getApplicationById } from "../../services/application-service";
+import { toastError , toastSuccess } from "../../utils/Toast";
 
 export default function EditApplication() {
   const { id } = useParams();
@@ -13,7 +14,6 @@ export default function EditApplication() {
       .then(res => setForm(res.data))
       .catch(err => {
         console.error(err);
-        // Better UX: redirect or show error if application not found
       });
   }, [id]);
 
@@ -24,8 +24,10 @@ export default function EditApplication() {
     setIsSaving(true);
     try {
       await updateApplication(id, form);
+      toastSuccess("Application updated successfully");
       navigate("/dashboard");
     } catch (err) {
+      toastError("Unable to Update Application. Please try again.");
       console.error(err);
     } finally {
       setIsSaving(false);
@@ -39,7 +41,6 @@ export default function EditApplication() {
       </div>
     );
 
-  // Reusable input style for consistency
   const inputClass = "w-full border p-2.5 rounded-lg bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all";
 
   return (

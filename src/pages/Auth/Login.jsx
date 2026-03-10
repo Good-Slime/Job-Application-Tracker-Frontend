@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../../services/auth-service";
 import { useNavigate, Link } from "react-router-dom";
+import { toastSuccess , toastError } from "../../utils/Toast";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,8 +19,10 @@ export default function Login() {
     try {
       const res = await login(form);
       localStorage.setItem("token", res.data.token);
+      toastSuccess("Logged in successfully");
       navigate("/dashboard");
     } catch (err) {
+      toastError("Invalid email or password. Please try again.");      
       setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
