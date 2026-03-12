@@ -1,9 +1,6 @@
-import { Navigate } from "react-router-dom";
-import { isAuthenticated } from "../../services/auth";
+import { Navigate, Outlet } from "react-router-dom";
 
-export const PublicRoute = ({ children }) => {
-  if (isAuthenticated()) {
-    return <Navigate to="/dashboard" />;
-  }
-  return children;
-};
+export default function PublicRoute() {
+  const token = localStorage.getItem("token");
+  return token ? <Navigate to="/dashboard" replace /> : <Outlet />;
+}
